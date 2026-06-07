@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KERO | Creative Zone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="main-header animate-up">
+        <img src="Group 33.png" class="navbar-img" alt="Navbar">
+    </header>
+
+    <main class="hero-container">
+        <div class="bg-layer"></div>
+        <div class="title-container animate-up">
+            <img src="Group 2.png" class="title-img" alt="Title">
+        </div>
+        <div class="character-layer animate-up">
+            <img src="Group 57.png" class="character-img" alt="Character">
+        </div>
+    </main>
+
+   <section class="stats-section">
+        <div class="stat-box">
+            <div class="stat-number" data-target="2">0</div>
+            <div class="stat-label">Years</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number" data-target="5">0</div>
+            <div class="stat-label">Design Fields</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number" data-target="30">0</div>
+            <div class="stat-label">Projects</div>
+        </div>
+    </section>
+
+    <script>
+        const counters = document.querySelectorAll('.stat-number');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        let count = 0;
+                        const increment = target / 50; 
+                        const update = () => {
+                            count += increment;
+                            if(count < target) {
+                                counter.innerText = Math.ceil(count);
+                                setTimeout(update, 30);
+                            } else {
+                                counter.innerText = target + "+";
+                            }
+                        };
+                        update();
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(document.querySelector('.stats-section'));
+    </script>
+</body>
+</html>
